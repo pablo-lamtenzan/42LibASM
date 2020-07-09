@@ -1,26 +1,21 @@
-global ft_strcpy
-
 section .text
+	global	ft_strcpy
 
 ft_strcpy:
+    push	rbp
+    mov		rbp, rsp
+	push	rdi
 
-	push		rbp
-	mov			rbp, rsp
-	xor			rcx, rcx		; save registers and clean
+.copy:
+    cmp		byte [rsi], 0x0
+    je		.quit
+    mov		al, byte [rsi]
+    mov		byte [rdi], al
+    inc		rdi
+    inc		rsi
+	jmp		.copy
 
-
-.ft_strcpy_loop:
-
-	cmp			[rdi + rcx], byte 0
-	jz			.ft_strcpy_end
-	mov			ax, [rsi + rcx]
-	mov			[rdi + rcx], ax
-	inc			rcx
-	jmp			.ft_strcpy_loop
-
-
-.ft_strcpy_end:
-
-mov			rax, rdi		; setup ret
-pop			rbp				; restore registers
-ret
+.quit:
+	pop	rax
+    leave
+    ret
