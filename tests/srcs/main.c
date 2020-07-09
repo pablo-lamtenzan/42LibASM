@@ -6,7 +6,7 @@
 /*   By: plamtenz <plamtenz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 17:47:17 by chamada           #+#    #+#             */
-/*   Updated: 2020/07/09 16:19:48 by plamtenz         ###   ########.fr       */
+/*   Updated: 2020/07/09 16:26:17 by plamtenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int run_bonus(int iterations)
 	int	err;
 
 	err = 0;
+	err |= !run_tests("ft_list_size", tests_ft_list_size, iterations);
 	err |= !run_tests("ft_atoi_base", tests_ft_atoi_base, iterations);
 	//err |= !run_tests("ft_list_push_front", tests_ft_list_push_front, iterations);
-	err |= !run_tests("ft_list_size", tests_ft_list_size, iterations);
 	//err |= !run_tests("ft_list_remove_if", tests_ft_list_remove_if, iterations);
 	return (err);
 }
