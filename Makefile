@@ -9,9 +9,24 @@ ARFLAGS = rcus
 RM = /bin/rm
 FORMAT = elf64
 FLAGS = -g
-UNITS = strlen strcpy strcmp write read strdup atoi_base_bonus list_size_bonus#list_push_front_bonus  
+UNITS = strlen strcpy strcmp write read strdup atoi_base_bonus #list_size_bonus list_push_front_bonus  
 SRCS = $(addprefix $(SRCDIR)/ft_, $(addsuffix .s, $(UNITS)))
 OBJS	=	$(patsubst $(SRCDIR)/%.s, $(OBJDIR)/%.o, $(SRCS))
+
+# for test
+
+TSTDIR	=	tests
+TSTSRCS	=	$(addprefix $(TSTDIR)/$(SRCDIR)/,	\
+			$(addprefix diff/diff_,				\
+				bool.c							\
+				sizes.c							\
+				types.c)	 					\
+			$(addprefix units/test_ft_, $(addsuffix .c, $(UNITS))) \
+			main.c utils.c rand.c)
+TSTINC	=	$(TSTDIR)/includes
+TSTCMD	=	./test
+
+# end for test
 
 all:			$(NAME)
 
@@ -36,3 +51,10 @@ fclean:			clean
 	@$(RM) -rf $(NAME) test
 
 re:				fclean all
+
+# for test: 
+
+test:			all $(TSTSRCS)
+	@printf "%-3s $(TSTSRCS)\n" CC
+	@$(CC) $(CFLAGS) $(TSTSRCS) -I$(TSTINC) -L. -lasm -o test
+	$(TSTCMD)
