@@ -16,21 +16,19 @@
 	%endmacro
 %endif
 
-global ft_read
+section	.text
+global	ft_read
+extern	__errno_location
 
-section .text
-
-ft_read:
-
-	mov			rax, 0x2000003
-	syscall
-	JERR		.error
+ft_read:					; RDI, RSI, RDX
+	mov		rax, READ_CALL	; Read Call #
+	syscall					; Call the system
+	JERR	.error
 	ret
-
 .error:
-	sub		rsp, 8							; Align stack to 16 bytes
-	call	__errno_location wrt ..plt		; Get errno pointer
-	add		rsp, 8							; Restore alignment
-	mov		[rax], rdx						; Set errno to error code
-	mov		rax, -1							; Return -1
+	sub		rsp, 8			; Align stack to 16 bytes
+	call	__errno_location wrt ..plt; Get errno pointer
+	add		rsp, 8			; Restore alignment
+	mov		[rax], rdx		; Set errno to error code
+	mov		rax, -1			; Return -1
 	ret
