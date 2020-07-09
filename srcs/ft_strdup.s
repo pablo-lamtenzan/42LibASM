@@ -1,32 +1,34 @@
-section	.text
 global	ft_strdup
-extern	malloc
-extern	ft_strlen
 global	ft_strncpy
 
-ft_strncpy:				; RDI, RSI, RDX - RAX, RCX
-	mov		rax, rdi	; Set RAX to dest
-	mov		rcx, rdx	; Set RCX to RDX
-	cld					; Clear DF / go forward
-	rep		movsb		; Copy RCX bytes from RSI to RDI
-	ret
+extern	malloc
+extern	ft_strlen
 
-ft_strdup:						; RDI - RAX, RDX, RDI
-	push	rdi					; Save src
-	call	ft_strlen			; ft_strlen(RDI)
-	inc		rax					; Increment len
-	mov		rdi, rax			; Set RDI to size
-	push	rax					; Save size
-	sub		rsp, 8				; Align stack to 16 bytes
-	call	malloc wrt ..plt	; malloc(RDI)
-	add		rsp, 8				; Restore alignment
-	pop		rdx					; Set RDX to size
-	pop		rsi					; Set RSI to src
-	test	rax, rax			; Check for NULL
-	jz		.end				; Abort and return NULL
-	mov		rdi, rax			; Set RDI to dst
-	sub		rsp, 8				; Align stack to 16 bytes
-	call	ft_strncpy			; ft_strncpy(RDI, RSI, RDX)
-	add		rsp, 8				; Restore alignment
+section	.text
+
+ft_strncpy:				
+	mov		rax, rdi			; put addr rdi in rax
+	mov		rcx, rdx			; put lenght in iterator register
+	cld							; Clear DF / go forward
+	rep		movsb				; copy the rcx bytes of rsi and put it rdi
+	ret							; put rax addr (who is equal to rdi address) in the address of the function call
+
+ft_strdup:
+	push	rdi					; put rdi in the top of the stack (save it for ft_strncpy)
+	call	ft_strlen			; call strlen, rax takes to value stored in function call address
+	inc		rax					; intrement rax for \0 (the lenght returnd by strlen)
+	mov		rdi, rax			; set the size for malloc using the incremented rax
+	push	rax					; put the size in the top of the stack
+	sub		rsp, 8				; allocate space in the stack for address of the function call
+	call	malloc wrt ..plt	; call malloc, rax takes a pointer of the first address in the first memory block stored in the function call address
+	add		rsp, 8				; restore the allocated size for the function call pointer
+	pop		rdx					; takes tack from the stack the size
+	pop		rsi					; will be used for the src of ft_strncpy
+	test	rax, rax			; check if the pointer of memory blocks 
+	jz		.end				; jump equal == 0 go end 
+	mov		rdi, rax			; put the pointer of the memory blocks allocated in rdi (who will be used in ft_strncpy)
+	sub		rsp, 8				; allocate space for the function call addr
+	call	ft_strncpy			; rax == to a pointer of the allocated mem block (rdi), where rsi value was be copied using rcx size
+	add		rsp, 8				; restore the allocation for function call pointer
 .end:
-	ret
+	ret							; puts a pointer of allocated string in the function call pointer

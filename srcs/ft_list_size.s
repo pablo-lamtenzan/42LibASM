@@ -1,32 +1,14 @@
 global ft_list_size
+
 section .text
 
-
-;ft_list_size:
-;	push		rbp
-;	mov			rbp, rsp
-;	xor			rax, rax
-;
-;.loop:
-;	test		rdi, rdi
-;	jz			.end
-;
-;	mov			rdi, [rdi + 8]
-;	inc			rax
-;	jmp			.loop
-
-;.end:
-;	ret
-
-
-ft_list_size:					; RDI - RAX
-	xor		rax,	rax			; Clear RCX
+ft_list_size:
+	xor		rax,	rax			; init rax as iterator having value of 0
 .loop:
-	test	rdi,	rdi			; Check for NULL
-	jz		.end
-	inc		rax
-	mov		rdi,	[rdi + 8]	; Load next pointer
-
-	jmp		.loop					; Loop
+	test	rdi,	rdi			; check if rdi is NULL
+	jz		.end				; jump equal end
+	inc		rax					; increment iterator rax
+	mov		rdi,	[rdi + 8]	; goes 64bits further (1 address size of)
+	jmp		.loop				; loop
 .end:
-	ret
+	ret							; put iterator rax value in the fct call address

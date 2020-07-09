@@ -18,5 +18,5 @@ ft_strcpy:
 
 .quit:
 	pop	rax						; put rax in the address of rdi
-    pop rbp						;
-    ret
+    pop rbp						; restore rbp (restore low-ptr stack)
+    ret							; put rax value in the address of the function call
