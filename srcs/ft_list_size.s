@@ -7,7 +7,7 @@ ft_list_size:
 	xor			rax, rax
 
 .loop:
-	test		rdi
+	test		rdi, rdi
 	je			.end
 	inc			rax
 	mov			rdi, qword [rdi + 8]
