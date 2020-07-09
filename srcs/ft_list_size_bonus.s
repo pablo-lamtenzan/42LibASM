@@ -1,5 +1,5 @@
 global ft_list_size
-sectiom .text
+section .text
 
 ft_list_size:
 	push		rbp
