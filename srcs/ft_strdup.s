@@ -1,28 +1,32 @@
-global  ft_strdup
-extern  ft_strlen, malloc, ft_strcpy
+section	.text
+global	ft_strdup
+extern	malloc
+extern	ft_strlen
+extern	ft_strncpy
 
-section .text
-
-ft_strdup:
-	push r12
-	mov	r12, rdi
-	call ft_strlen
-	mov	rdi, rax
-	inc	rdi
-	push rax
-	
-	call malloc
-	cmp rax, 0
-	je exit
-
-	mov rdi, rax
-	mov rsi, r12
-	pop rax
-
-	call ft_strcpy
-
-exit:
-	pop r12
+ft_strncpy:			; RDI, RSI, RDX - RAX, RCX
+	mov		rax, rdi	; Set RAX to dest
+	mov		rcx, rdx	; Set RCX to RDX
+	cld					; Clear DF / go forward
+	rep		movsb		; Copy RCX bytes from RSI to RDI
 	ret
 
-
+ft_strdup:						; RDI - RAX, RDX, RDI
+	push	rdi					; Save src
+	call	ft_strlen			; ft_strlen(RDI)
+	inc		rax					; Increment len
+	mov		rdi, rax			; Set RDI to size
+	push	rax					; Save size
+	sub		rsp, 8				; Align stack to 16 bytes
+	call	malloc wrt ..plt	; malloc(RDI)
+	add		rsp, 8				; Restore alignment
+	pop		rdx					; Set RDX to size
+	pop		rsi					; Set RSI to src
+	test	rax, rax			; Check for NULL
+	jz		.end				; Abort and return NULL
+	mov		rdi, rax			; Set RDI to dst
+	sub		rsp, 8				; Align stack to 16 bytes
+	call	ft_strncpy			; ft_strncpy(RDI, RSI, RDX)
+	add		rsp, 8				; Restore alignment
+.end:
+	ret
