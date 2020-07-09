@@ -8,9 +8,10 @@ ft_list_size:
 
 .loop:
 	test		rdi, rdi
-	je			.end
+	jz			.end
+
+	mov			rdi, [rdi + 8]
 	inc			rax
-	mov			rdi, qword [rdi + 8]
 	jmp			.loop
 
 .end:
