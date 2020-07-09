@@ -1,20 +1,18 @@
-NAME = libasm.a
-SRCDIR = srcs
-OBJDIR = objs
-ASM = nasm
-CC = /usr/bin/clang
-CFLAGS = -Wall -Wextra -Werror
-AR = /usr/bin/ar
-ARFLAGS = rcus
-RM = /bin/rm
-FORMAT = elf64
-FLAGS = -g
-UNITS = strlen strcpy strcmp write read strdup #atoi_base_bonus #list_size_bonus list_push_front_bonus  
-SRCS = $(addprefix $(SRCDIR)/ft_, $(addsuffix .s, $(UNITS)))
+NAME	=	libasm.a
+SRCDIR	=	srcs
+OBJDIR	=	objs
+ASM		=	nasm
+AFLAGS	=	--prefix '_'
+CC		=	/usr/bin/clang
+CFLAGS	=	-Wall -Wextra -Werror
+AR		=	/usr/bin/ar
+ARFLAGS	=	rcus
+RM		=	/bin/rm
+FORMAT	=	macho64
+FLAGS	=	
+UNITS	=	strlen strcpy strcmp write read strdup #atoi_base list_push_front list_size list_remove_if
+SRCS	=	$(addprefix $(SRCDIR)/ft_, $(addsuffix .s, $(UNITS)))
 OBJS	=	$(patsubst $(SRCDIR)/%.s, $(OBJDIR)/%.o, $(SRCS))
-
-# for test
-
 TSTDIR	=	tests
 TSTSRCS	=	$(addprefix $(TSTDIR)/$(SRCDIR)/,	\
 			$(addprefix diff/diff_,				\
@@ -25,8 +23,6 @@ TSTSRCS	=	$(addprefix $(TSTDIR)/$(SRCDIR)/,	\
 			main.c utils.c rand.c)
 TSTINC	=	$(TSTDIR)/includes
 TSTCMD	=	./test
-
-# end for test
 
 all:			$(NAME)
 
@@ -51,8 +47,6 @@ fclean:			clean
 	@$(RM) -rf $(NAME) test
 
 re:				fclean all
-
-# for test: 
 
 test:			all $(TSTSRCS)
 	@printf "%-3s $(TSTSRCS)\n" CC
