@@ -20,7 +20,7 @@ section .text
 
 
 ft_list_size:					; RDI - RAX
-	sub		rax,	rax			; Clear RCX
+	xor		rax,	rax			; Clear RCX
 .loop:
 	test	rdi,	rdi			; Check for NULL
 	jz		.end
