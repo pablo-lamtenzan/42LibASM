@@ -6,7 +6,7 @@
 /*   By: plamtenz <plamtenz@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 17:47:17 by chamada           #+#    #+#             */
-/*   Updated: 2020/07/09 15:08:33 by plamtenz         ###   ########.fr       */
+/*   Updated: 2020/07/09 15:15:44 by plamtenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	run_basic(void)
 	return (err);
 }
 
+/*
 static int run_bonus(void)
 {
 	int err;
@@ -42,7 +43,7 @@ static int run_bonus(void)
 	err |= !run_tests("ft_list_remove_if", tests_ft_list_remove_if);
 	return (err);
 }
-
+*/
 int			main(void)
 {
 	int	err;
