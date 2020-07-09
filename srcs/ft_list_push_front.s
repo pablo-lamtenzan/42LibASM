@@ -2,7 +2,9 @@ global ft_list_push_front
 extern ft_create_elem
 
 section .text
+
 ft_list_push_front:
+
 	test		rdi
 	je			.end
 	test		rsi
