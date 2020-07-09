@@ -1,31 +1,25 @@
-global ft_strdup
+section	.text
+global	ft_strdup
+extern	malloc
+extern	ft_strlen
+extern	ft_strncpy
 
-extern ft_strlen
-extern ft_strcpy
-extern malloc
-
-section .text
-
-_ft_strdup:
-
-	mov			rbx, rdi		; save str imput address
-
-	call		ft_strlen
-	mov			rdx, rax
-	inc			rax				; + 1 for '/0'
-	mov			rdi, rax		; set ret in imput
-	push		rax				; push rax to the top of the stack
-
-	call		malloc
-	cmp			rax, 0
-	je			.return
-	mov			rdi, rax		; malloc str in rbi
-	mov			rsi, rbx		; first imput str to 2nd arg
-	pop			rbx			; restore registers
-
-	call		ft_strcpy		; uses malloc str (1st arg) and 1st imput (2nd arg)
-
-
-.return:
-
+ft_strdup:						; RDI - RAX, RDX, RDI
+	push	rdi					; Save src
+	call	ft_strlen			; ft_strlen(RDI)
+	inc		rax					; Increment len
+	mov		rdi, rax			; Set RDI to size
+	push	rax					; Save size
+	sub		rsp, 8				; Align stack to 16 bytes
+	call	malloc wrt ..plt	; malloc(RDI)
+	add		rsp, 8				; Restore alignment
+	pop		rdx					; Set RDX to size
+	pop		rsi					; Set RSI to src
+	test	rax, rax			; Check for NULL
+	jz		.end				; Abort and return NULL
+	mov		rdi, rax			; Set RDI to dst
+	sub		rsp, 8				; Align stack to 16 bytes
+	call	ft_strncpy			; ft_strncpy(RDI, RSI, RDX)
+	add		rsp, 8				; Restore alignment
+.end:
 	ret
