@@ -4,7 +4,7 @@ extern	malloc
 extern	ft_strlen
 global	ft_strncpy
 
-ft_strncpy:			; RDI, RSI, RDX - RAX, RCX
+ft_strncpy:				; RDI, RSI, RDX - RAX, RCX
 	mov		rax, rdi	; Set RAX to dest
 	mov		rcx, rdx	; Set RCX to RDX
 	cld					; Clear DF / go forward
