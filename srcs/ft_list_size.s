@@ -7,7 +7,7 @@ section .text
 ;	mov			rbp, rsp
 ;	xor			rax, rax
 ;
-.;loop:
+;.loop:
 ;	test		rdi, rdi
 ;	jz			.end
 ;
