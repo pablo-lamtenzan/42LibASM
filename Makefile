@@ -1,27 +1,38 @@
-NAME	= libasm.a
+NAME = libasm.a
+SRCDIR = srcs
+OBJDIR = objs
+ASM = nasm
+CC = /usr/bin/clang
+CFLAGS = -Wall -Wextra -Werror
+AR = /usr/bin/ar
+ARFLAGS = rcus
+RM = /bin/rm
+FORMAT = elf64
+FLAGS = -g
+UNITS = strlen strcpy strcmp write read strdup atoi_base list_push_front list_size list_remove_if
+SRCS = $(addprefix $(SRCDIR)/ft_, $(addsuffix .s, $(UNITS)))
+OBJS	=	$(patsubst $(SRCDIR)/%.s, $(OBJDIR)/%.o, $(SRCS))
 
-CC		= gcc
+all:			$(NAME)
 
-CFLAGS	=
+$(NAME):		$(OBJS)
+	@printf "%-3s $@ $(OBJS)\n" AR
+	@$(AR) $(ARFLAGS) $@ $(OBJS)
 
-AR		= ar rcs
+$(OBJDIR):
+	@printf "%-3s $@\n" MK
+	@mkdir -p $(OBJDIR)
 
-OBJS	= ${SRCS:.s=.o}
+$(OBJDIR)/%.o: $(SRCDIR)/%.s $(OBJDIR) Makefile
+	@printf "%-3s $<\n" ASM
+	@$(ASM) $(FLAGS) $(AFLAGS) -f$(FORMAT) $< -o $@
 
-${NAME} : ${OBJS}
-	${AR} ${NAME} ${OBJS}
+clean:
+	@printf "%-3s $(OBJDIR)\n" RM
+	@$(RM) -rf $(OBJDIR)
 
-%.o				%.c ft_libasm.h
-	${CC} ${FLAGS} -o $@ $<
+fclean:			clean
+	@printf "%-3s $(NAME) test\n" RM
+	@$(RM) -rf $(NAME) test
 
-all	:		${NAME}
-
-clean	:	
-	rm -f ${OBJS}
-
-fclean	:
-	rm -f ${NAME}
-
-re :		fclean all
-
-.PHONY:		all bonus clean fclean re
+re:				fclean all
