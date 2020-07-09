@@ -9,7 +9,7 @@ ARFLAGS = rcus
 RM = /bin/rm
 FORMAT = elf64
 FLAGS = -g
-UNITS = strlen strcpy strcmp write read strdup atoi_base_bonus list_push_front_bonus list_size_bonus
+UNITS = strlen strcpy strcmp write read strdup list_push_front_bonus list_size_bonus atoi_base_bonus
 SRCS = $(addprefix $(SRCDIR)/ft_, $(addsuffix .s, $(UNITS)))
 OBJS	=	$(patsubst $(SRCDIR)/%.s, $(OBJDIR)/%.o, $(SRCS))
 
