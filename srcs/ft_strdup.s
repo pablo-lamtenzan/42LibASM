@@ -2,7 +2,7 @@ section	.text
 global	ft_strdup
 extern	malloc
 extern	ft_strlen
-extern	ft_strncpy
+global	ft_strncpy
 
 ft_strncpy:			; RDI, RSI, RDX - RAX, RCX
 	mov		rax, rdi	; Set RAX to dest
