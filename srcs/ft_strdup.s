@@ -9,7 +9,7 @@ section	.text
 ft_strncpy:				
 	mov		rax, rdi			; put addr rdi in rax
 	mov		rcx, rdx			; put lenght in iterator register
-	cld							; Clear DF / go forward
+	cld							; clears the dirrection flag and goes forward (direction flag determines the direction of the value forward or backward)
 	rep		movsb				; copy the rcx bytes of rsi and put it rdi
 	ret							; put rax addr (who is equal to rdi address) in the address of the function call
 
