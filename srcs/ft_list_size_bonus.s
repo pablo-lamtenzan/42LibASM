@@ -1,7 +1,7 @@
-global _ft_list_size
+global ft_list_size
 sectiom .text
 
-_ft_list_size:
+ft_list_size:
 	push		rbp
 	mov			rbp, rsp
 	xor			rax, rax

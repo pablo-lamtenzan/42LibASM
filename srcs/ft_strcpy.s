@@ -1,8 +1,8 @@
-global _ft_strcpy
+global ft_strcpy
 
 section .text
 
-_ft_strcpy:
+ft_strcpy:
 
 	push		rbp
 	mov			rbp, rsp
@@ -16,7 +16,7 @@ _ft_strcpy:
 	mov			ax, [rsi + rcx]
 	mov			[rdi + rcx], ax
 	inc			rcx
-	jmp		.ft_strcpy_loop
+	jmp			.ft_strcpy_loop
 
 
 .ft_strcpy_end:

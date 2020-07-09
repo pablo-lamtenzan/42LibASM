@@ -1,8 +1,8 @@
-global _ft_strcmp
+global ft_strcmp
 
 section .text
 
-_ft_strcmp:
+ft_strcmp:
 
 	mov			rax, -1
 	test		rdi, rdi

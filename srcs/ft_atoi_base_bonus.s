@@ -1,7 +1,7 @@
 global ft_atoi_base
 extern  ft_strlen 
 section .text
-_ft_atoi_base:
+ft_atoi_base:
     push        rbp
     mov         rbp, rsp
     xor         rcx, rcx
@@ -99,7 +99,7 @@ _ft_atoi_base:
     xor         r15, r15
     mov         r15, rdi                
     mov         rdi, rsi
-    call        _ft_strlen              ;rax = ft_strlen(base);
+    call        ft_strlen              ;rax = ft_strlen(base);
     mov         rdi, r15
     mov         r15, rax
 .conversion0:                            ; where the magic happends

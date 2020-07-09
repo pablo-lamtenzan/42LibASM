@@ -1,5 +1,5 @@
 global _ft_list_push_front
-extern _ft_create_elem
+extern ft_create_elem
 
 section .text
 _ft_list_push_front:
