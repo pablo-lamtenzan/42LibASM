@@ -24,8 +24,9 @@ ft_list_size:					; RDI - RAX
 .loop:
 	test	rdi,	rdi			; Check for NULL
 	jz		.end
-	mov		rdi,	[rdi + 8]	; Load next pointer
 	inc		rax
+	mov		rdi,	[rdi + 8]	; Load next pointer
+
 	jmp		.loop					; Loop
 .end:
 	ret
