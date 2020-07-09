@@ -3,7 +3,7 @@ extern  ft_strlen, malloc, ft_strcpy
 
 section .text
 
-_ft_strdup:
+ft_strdup:
 	push r12
 	mov	r12, rdi
 	call ft_strlen
