@@ -13,16 +13,6 @@ FLAGS	=	-g
 UNITS	=	strlen strcpy strcmp write read strdup atoi_base list_size #list_push_front  list_remove_if
 SRCS	=	$(addprefix $(SRCDIR)/ft_, $(addsuffix .s, $(UNITS)))
 OBJS	=	$(patsubst $(SRCDIR)/%.s, $(OBJDIR)/%.o, $(SRCS))
-TSTDIR	=	tests
-TSTSRCS	=	$(addprefix $(TSTDIR)/$(SRCDIR)/,	\
-			$(addprefix diff/diff_,				\
-				bool.c							\
-				sizes.c							\
-				types.c)	 					\
-			$(addprefix units/test_ft_, $(addsuffix .c, $(UNITS))) \
-			main.c utils.c rand.c)
-TSTINC	=	$(TSTDIR)/includes
-TSTCMD	=	./test
 
 all:			$(NAME)
 
@@ -47,8 +37,3 @@ fclean:			clean
 	@$(RM) -rf $(NAME) test
 
 re:				fclean all
-
-test:			all $(TSTSRCS)
-	@printf "%-3s $(TSTSRCS)\n" CC
-	@$(CC) $(CFLAGS) $(TSTSRCS) -I$(TSTINC) -L. -lasm -o test
-	$(TSTCMD)
